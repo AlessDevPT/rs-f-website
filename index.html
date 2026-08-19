@@ -2125,7 +2125,7 @@
 
       <form class="founder-form"
             id="founder-form"
-            action="https://formsubmit.co/ajax/finacyapp@gmail.com"
+            action="https://formsubmit.co/ajax/2a09b1c9cc51806df65d8d46925beedc"
             method="POST"
             novalidate>
         <!-- FormSubmit configuration -->
@@ -2426,6 +2426,7 @@
     text-align: center;
   }
 
+  .founder-thanks[hidden] { display: none; }
   .founder-thanks {
     display: flex;
     flex-direction: column;
@@ -2815,7 +2816,9 @@
       const errEl   = document.getElementById('ff-error');
       const btn     = document.getElementById('ff-submit-btn');
       const label   = btn.querySelector('.ff-submit-label');
+      const honeyEl = ff.querySelector('input[name="_honey"]');
 
+      if (honeyEl && honeyEl.value.trim()) { return; }
       if (!emailEl.value.trim() || !bankEl.value.trim()) { ff.reportValidity(); return; }
 
       errEl.hidden = true;
@@ -2829,11 +2832,7 @@
           body: new FormData(ff),
           headers: { 'Accept': 'application/json' },
         });
-        const out = await res.json().catch(() => ({}));
-        console.log('FormSubmit response:', out);
-        if (!res.ok || out.success === 'false' || out.success === false) {
-          throw new Error(out.message || ('Bad status ' + res.status));
-        }
+        if (!res.ok) throw new Error('Bad status ' + res.status);
         document.getElementById('thanks-bank').textContent = bankEl.value.trim();
         ff.hidden = true;
         document.getElementById('founder-thanks').hidden = false;
