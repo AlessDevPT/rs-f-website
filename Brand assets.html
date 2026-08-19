@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Finacy — Logo exports</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0a0a0b; --surface:#111114; --line:#1f1f24; --text:#ededee; --dim:#9a9aa3; --faint:#5f5f68; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font-family:"Geist",system-ui,sans-serif; padding: 40px 24px 80px; }
+  .wrap { max-width: 980px; margin: 0 auto; }
+  h1 { font-weight:500; letter-spacing:-0.02em; font-size:32px; margin: 0 0 8px; }
+  p.lede { color: var(--dim); margin: 0 0 40px; max-width: 560px; }
+  .row { display:grid; grid-template-columns: 1fr; gap: 18px; margin-bottom: 40px; }
+  @media (min-width: 720px) { .row { grid-template-columns: 1fr 1fr; } }
+  .card { background: var(--surface); border:1px solid var(--line); border-radius: 14px; overflow:hidden; }
+  .card.light { background: #f6f6f3; }
+  .card.contrast { background: #0f1733; }
+  .stage { padding: 48px; display:flex; align-items:center; justify-content:center; min-height: 180px; }
+  .meta { border-top:1px solid var(--line); padding: 14px 18px; display:flex; justify-content:space-between; align-items:center; font-family:"Geist Mono"; font-size:12px; color: var(--dim); }
+  .card.light .meta { border-top-color: #d8d8d2; color:#5f5f5a; background:#efefe9; }
+  .card.contrast .meta { border-top-color:#1f2756; color:#9aa3c9; background:#0c1230; }
+  .meta a { color: inherit; text-decoration: none; padding: 4px 9px; border-radius: 6px; border: 1px solid currentColor; opacity: .6; }
+  .meta a:hover { opacity: 1; }
+  .grid-marks { display:grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .mark-cell { background: var(--surface); border:1px solid var(--line); border-radius: 14px; padding: 22px; display:flex; flex-direction:column; align-items:center; gap: 12px; }
+  .mark-cell.alt { background: #f6f6f3; }
+  .mark-cell .label { font-family:"Geist Mono"; font-size: 11px; color: var(--faint); }
+  .mark-cell.alt .label { color:#7a7a72; }
+  h2 { font-weight:500; letter-spacing:-0.01em; font-size: 14px; color: var(--dim); margin: 0 0 14px; font-family:"Geist Mono"; text-transform: uppercase; letter-spacing: 0.1em; }
+  img, object { display:block; max-width: 100%; height: auto; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Finacy — Logo exports</h1>
+    <p class="lede">Vector SVGs are the source. PNGs at 2× / 4× / 512 are exported for places that don't take SVG (favicons, social, etc.).</p>
+
+    <h2>Wordmark — light on dark</h2>
+    <div class="row">
+      <div class="card">
+        <div class="stage"><img src="brand/finacy-logo.svg" alt="Finacy logo" width="260"></div>
+        <div class="meta"><span>finacy-logo.svg</span><a href="brand/finacy-logo.svg" download>SVG ↓</a></div>
+      </div>
+      <div class="card">
+        <div class="stage"><img src="brand/finacy-logo-2x.png" alt="Finacy logo 2x" width="260"></div>
+        <div class="meta"><span>finacy-logo-2x.png · 520×128</span><a href="brand/finacy-logo-2x.png" download>PNG ↓</a></div>
+      </div>
+    </div>
+
+    <h2>Wordmark — on near-black plate</h2>
+    <div class="row">
+      <div class="card contrast">
+        <div class="stage"><img src="brand/finacy-logo-dark.svg" alt="Finacy logo dark plate" width="260"></div>
+        <div class="meta"><span>finacy-logo-dark.svg</span><a href="brand/finacy-logo-dark.svg" download>SVG ↓</a></div>
+      </div>
+      <div class="card contrast">
+        <div class="stage"><img src="brand/finacy-logo-dark-2x.png" alt="Finacy logo dark plate 2x" width="260"></div>
+        <div class="meta"><span>finacy-logo-dark-2x.png</span><a href="brand/finacy-logo-dark-2x.png" download>PNG ↓</a></div>
+      </div>
+    </div>
+
+    <h2>App mark — for favicons, app icons, social avatars</h2>
+    <div class="grid-marks">
+      <div class="mark-cell">
+        <img src="brand/finacy-mark.svg" alt="" width="80" height="80">
+        <span class="label">SVG · vector</span>
+      </div>
+      <div class="mark-cell">
+        <img src="brand/finacy-mark-2x.png" alt="" width="80" height="80">
+        <span class="label">PNG · 128×128</span>
+      </div>
+      <div class="mark-cell">
+        <img src="brand/finacy-mark-512.png" alt="" width="80" height="80">
+        <span class="label">PNG · 512×512</span>
+      </div>
+      <div class="mark-cell alt">
+        <img src="brand/finacy-mark.svg" alt="" width="80" height="80">
+        <span class="label">on light bg</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

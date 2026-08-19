@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Finacy — Report a bug</title>
+<meta name="description" content="Found something wrong in Finacy? Tell us what happened and we'll fix it.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg-2: #0e0e10;
+    --surface: #111114;
+    --surface-2: #16161a;
+    --line: #1f1f24;
+    --line-2: #2a2a31;
+    --text: #ededee;
+    --text-dim: #9a9aa3;
+    --text-faint: #5f5f68;
+    --blue: oklch(0.72 0.18 250);
+    --blue-soft: oklch(0.72 0.18 250 / 0.12);
+    --lime: oklch(0.92 0.18 125);
+    --lime-soft: oklch(0.92 0.18 125 / 0.14);
+    --warn: oklch(0.78 0.15 50);
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-size: 16px;
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  ::selection { background: var(--lime); color: #0a0a0b; }
+  a { color: inherit; }
+
+  /* top bar */
+  .bug-nav {
+    border-bottom: 1px solid var(--line);
+    background: rgba(10,10,11,0.8);
+    backdrop-filter: blur(10px);
+  }
+  .bug-nav-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    color: var(--text);
+  }
+  .brand-mark {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    background: var(--lime);
+    display: grid; place-items: center;
+  }
+  .brand-mark::after {
+    content: ""; width: 10px; height: 10px;
+    background: var(--bg); border-radius: 3px;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: "Geist Mono";
+    font-size: 12px;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color .15s ease;
+  }
+  .back-link:hover { color: var(--text); }
+
+  /* main */
+  .wrap {
+    flex: 1;
+    width: 100%;
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 72px 24px 96px;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "Geist Mono";
+    font-size: 12px;
+    color: var(--warn);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 18px;
+  }
+  .eyebrow .bug-badge {
+    width: 30px; height: 30px;
+    border-radius: 9px;
+    background: oklch(0.78 0.15 50 / 0.14);
+    border: 1px solid oklch(0.78 0.15 50 / 0.3);
+    display: grid; place-items: center;
+    color: var(--warn);
+  }
+  h1 {
+    font-size: 34px;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin: 0 0 14px;
+  }
+  .lede {
+    color: var(--text-dim);
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 0 36px;
+    max-width: 46ch;
+  }
+
+  /* form (matches founders program) */
+  .bug-form { display: flex; flex-direction: column; gap: 16px; }
+  .ff-field { display: flex; flex-direction: column; gap: 6px; }
+  .ff-field label {
+    font-family: "Geist Mono";
+    font-size: 11px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .ff-opt { color: var(--text-faint); text-transform: none; letter-spacing: 0; font-family: "Geist", sans-serif; }
+  .ff-field input, .ff-field textarea, .ff-field select {
+    background: var(--bg);
+    border: 1px solid var(--line-2);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--text);
+    font: inherit;
+    font-size: 15px;
+    transition: border-color .15s ease, background .15s ease;
+    resize: vertical;
+  }
+  .ff-field input:focus, .ff-field textarea:focus, .ff-field select:focus {
+    outline: none;
+    border-color: oklch(0.72 0.18 250 / 0.6);
+    background: var(--surface-2);
+  }
+  .ff-field input::placeholder, .ff-field textarea::placeholder { color: var(--text-faint); }
+
+  .ff-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 20px;
+    background: var(--lime);
+    color: #0a0a0b;
+    border: none;
+    border-radius: 10px;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 6px;
+    text-decoration: none;
+    transition: filter .15s ease, transform .1s ease;
+  }
+  .ff-submit:hover { filter: brightness(1.06); }
+  .ff-submit:active { transform: translateY(1px); }
+  .ff-submit:disabled { opacity: 0.6; cursor: progress; }
+  .ff-error {
+    color: oklch(0.7 0.2 25);
+    font-size: 13px;
+    margin: 4px 0 0;
+  }
+  .ff-fineprint {
+    color: var(--text-faint);
+    font-size: 12.5px;
+    margin: 4px 0 0;
+    line-height: 1.5;
+  }
+
+  .bug-thanks {
+    display: none;
+    flex-direction: column;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 8px 0;
+  }
+  .bug-thanks.show { display: flex; }
+  .thanks-mark {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--lime-soft);
+    color: var(--lime);
+    display: grid; place-items: center;
+    border: 1px solid oklch(0.92 0.18 125 / 0.3);
+  }
+  .bug-thanks h2 {
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .bug-thanks p {
+    color: var(--text-dim);
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .bug-thanks .ff-submit { background: var(--surface-2); color: var(--text); border: 1px solid var(--line-2); }
+
+  /* footer */
+  .bug-foot {
+    border-top: 1px solid var(--line);
+    padding: 22px 24px;
+    text-align: center;
+    color: var(--text-faint);
+    font-size: 12px;
+    font-family: "Geist Mono";
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 560px) {
+    .wrap { padding: 48px 22px 72px; }
+    h1 { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="bug-nav">
+  <div class="bug-nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true"></span>
+      Finacy
+    </a>
+    <a class="back-link" href="index.html">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back to site
+    </a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <div class="eyebrow">
+    <span class="bug-badge" aria-hidden="true">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M8 2l1.5 2.5M16 2l-1.5 2.5"/><rect x="7" y="6" width="10" height="13" rx="5"/><path d="M12 6v13M3 10h4M3 15h4M17 10h4M17 15h4M5 7l2 2M19 7l-2 2M5 19l2-2M19 19l-2-2"/></svg>
+    </span>
+    Report a bug
+  </div>
+
+  <h1>Something not working right?</h1>
+  <p class="lede">Tell us what happened and we'll dig in. The more detail you give — what you tapped, what you expected, your device — the faster we can fix it.</p>
+
+  <form class="bug-form"
+        id="bug-form"
+        action="https://formsubmit.co/ajax/finacyapp@gmail.com"
+        method="POST"
+        novalidate>
+    <!-- FormSubmit configuration -->
+    <input type="hidden" name="_subject" value="🐞 New bug report from Finacy site">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+    <!-- honeypot -->
+    <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" aria-hidden="true">
+
+    <div class="ff-field">
+      <label for="bug-email">Your email</label>
+      <input id="bug-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+    </div>
+    <div class="ff-field">
+      <label for="bug-device">Device <span class="ff-opt">(optional)</span></label>
+      <input id="bug-device" name="device" type="text" placeholder="e.g. Pixel 8, Android 14">
+    </div>
+    <div class="ff-field">
+      <label for="bug-msg">What went wrong?</label>
+      <textarea id="bug-msg" name="message" rows="6" placeholder="Describe the bug — what you did, what you expected, and what actually happened." required></textarea>
+    </div>
+    <button type="submit" class="ff-submit" id="bug-submit-btn">
+      <span class="ff-submit-label">Send bug report</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+    <p class="ff-fineprint">Goes straight to the Finacy team. We read every report and usually reply within a week.</p>
+    <p class="ff-error" id="bug-error" hidden>Something went wrong sending your report. Please try again in a moment.</p>
+  </form>
+
+  <div class="bug-thanks" id="bug-thanks">
+    <div class="thanks-mark">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
+    </div>
+    <h2>Report received.</h2>
+    <p>Thanks for taking the time — we've got your report and we'll look into it. If we need more detail we'll reach out to the email you gave us.</p>
+    <a class="ff-submit" href="index.html">Back to Finacy</a>
+  </div>
+</main>
+
+<footer class="bug-foot">
+  Finacy · Offline finance for Android
+</footer>
+
+<script>
+  const bf = document.getElementById('bug-form');
+  bf.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const emailEl = document.getElementById('bug-email');
+    const msgEl   = document.getElementById('bug-msg');
+    const errEl   = document.getElementById('bug-error');
+    const btn     = document.getElementById('bug-submit-btn');
+    const label   = btn.querySelector('.ff-submit-label');
+
+    if (!emailEl.value.trim() || !msgEl.value.trim()) { bf.reportValidity(); return; }
+
+    errEl.hidden = true;
+    btn.disabled = true;
+    const original = label.textContent;
+    label.textContent = 'Sending…';
+
+    try {
+      const res = await fetch(bf.action, {
+        method: 'POST',
+        body: new FormData(bf),
+        headers: { 'Accept': 'application/json' },
+      });
+      const out = await res.json().catch(() => ({}));
+      console.log('FormSubmit response:', out);
+      if (!res.ok || out.success === 'false' || out.success === false) {
+        throw new Error(out.message || ('Bad status ' + res.status));
+      }
+      bf.style.display = 'none';
+      document.getElementById('bug-thanks').classList.add('show');
+    } catch (err) {
+      console.warn('Bug report submit failed:', err);
+      errEl.hidden = false;
+      btn.disabled = false;
+      label.textContent = original;
+    }
+  });
+</script>
+</body>
+</html>
